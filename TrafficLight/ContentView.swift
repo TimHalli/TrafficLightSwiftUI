@@ -17,7 +17,7 @@ struct ContentView: View {
                     )
                 }
              
-                ButtonView(lightState: $lightState)
+                CustomButton(lightState: $lightState)
             }
         }
     }
@@ -40,7 +40,7 @@ struct CircleView: View {
     }
 }
 
-struct ButtonView: View {
+struct CustomButton: View {
     @Binding var lightState: Int
     
     var body: some View {

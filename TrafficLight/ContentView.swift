@@ -18,12 +18,7 @@ struct ContentView: View {
                     )
                 }
              
-                Button(buttonText) {
-                    lightState = (lightState + 1) % 3
-                    buttonText = "NEXT"
-                }
-                .font(.title)
-                .padding()
+                ButtonView(lightState: $lightState)
             }
         }
     }
@@ -46,6 +41,24 @@ struct CircleView: View {
     }
 }
 
+struct ButtonView: View {
+    @Binding var lightState: Int
+    
+    var body: some View {
+        Button(lightState == -1 ? "START" : "NEXT") {
+            lightState = (lightState + 1) % 3
+        }
+        .foregroundColor(.white)
+        .font(.title)
+        .padding()
+        .background(Color.blue)
+        .cornerRadius(15)
+        .overlay(
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(Color.white, lineWidth: 2)
+        )
+    }
+}
 #Preview {
     ContentView()
 }

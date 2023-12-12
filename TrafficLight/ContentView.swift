@@ -7,39 +7,41 @@ struct ContentView: View {
     @State private var buttonText = "START"
     
     var body: some View {
-        VStack {
+        ZStack {
+            Color.black.ignoresSafeArea()
             
-            Circle()
-                .frame(width: width)
-                .foregroundColor(.green).opacity(lightState == 0 ? 1: 0.5)
-                .overlay(Circle().stroke(Color.white, lineWidth: 2))
+            VStack {
+                CircleView(width: width, color: .green, opacity: lightState == 0 ? 1 : 0.5, strokeWidth: 2)
+                CircleView(width: width, color: .yellow, opacity: lightState == 1 ? 1 : 0.5, strokeWidth: 2)
+                CircleView(width: width, color: .red, opacity: lightState == 2 ? 1 : 0.5, strokeWidth: 2)
+                
+                Button(buttonText) {
+                    lightState = (lightState + 1) % 3
+                    buttonText = "NEXT"
+                }
+                .font(.title)
                 .padding()
-            
-            Circle()
-                .frame(width: width)
-                .foregroundColor(.yellow).opacity(lightState == 1 ? 1: 0.5)
-                .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                .padding()
-            
-            Circle()
-                .frame(width: width)
-                .foregroundColor(.red).opacity(lightState == 2 ? 1: 0.5)
-                .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                .padding()
-            
-            Button(buttonText) {
-                lightState = (lightState + 1) % 3
-                buttonText = lightState == 0 ? "START" : "NEXT"
             }
-            .font(.title)
-            .padding()
         }
     }
 }
 
-#Preview {
-    ZStack {
-        Color.black.ignoresSafeArea()
-        ContentView()
+struct CircleView: View {
+    let width: CGFloat
+    let color: Color
+    let opacity: Double
+    let strokeWidth: CGFloat
+    
+    var body: some View {
+        Circle()
+            .frame(width: width)
+            .foregroundColor(color)
+            .opacity(opacity)
+            .overlay(Circle().stroke(Color.white, lineWidth: strokeWidth))
+            .padding()
     }
+}
+
+#Preview {
+    ContentView()
 }

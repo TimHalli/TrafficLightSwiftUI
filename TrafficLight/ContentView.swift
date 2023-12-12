@@ -23,7 +23,7 @@ struct ContentView: View {
             
             Circle()
                 .frame(width: width)
-                .foregroundColor(.red).opacity(lightState == 0 ? 1: 0.5)
+                .foregroundColor(.red).opacity(lightState == 2 ? 1: 0.5)
                 .overlay(Circle().stroke(Color.white, lineWidth: 2))
                 .padding()
             

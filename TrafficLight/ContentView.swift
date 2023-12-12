@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    private let width: CGFloat = 200
+    private let circleColors: [Color] = [.green, .yellow, .red]
     
-    @State private var lightState = 0
+    @State private var lightState = -1
     @State private var buttonText = "START"
     
     var body: some View {
@@ -11,10 +11,13 @@ struct ContentView: View {
             Color.black.ignoresSafeArea()
             
             VStack {
-                CircleView(width: width, color: .green, opacity: lightState == 0 ? 1 : 0.5, strokeWidth: 2)
-                CircleView(width: width, color: .yellow, opacity: lightState == 1 ? 1 : 0.5, strokeWidth: 2)
-                CircleView(width: width, color: .red, opacity: lightState == 2 ? 1 : 0.5, strokeWidth: 2)
-                
+                ForEach(0..<3) { index in
+                    CircleView(
+                        color: circleColors[index],
+                        opacity: lightState == index ? 1 : 0.5
+                    )
+                }
+             
                 Button(buttonText) {
                     lightState = (lightState + 1) % 3
                     buttonText = "NEXT"
@@ -27,10 +30,11 @@ struct ContentView: View {
 }
 
 struct CircleView: View {
-    let width: CGFloat
+    private let strokeWidth: CGFloat = 2
+    private let width: CGFloat = 200
+
     let color: Color
     let opacity: Double
-    let strokeWidth: CGFloat
     
     var body: some View {
         Circle()

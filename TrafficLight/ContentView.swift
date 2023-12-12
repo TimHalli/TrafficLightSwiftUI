@@ -4,7 +4,6 @@ struct ContentView: View {
     private let circleColors: [Color] = [.green, .yellow, .red]
     
     @State private var lightState = -1
-    @State private var buttonText = "START"
     
     var body: some View {
         ZStack {
